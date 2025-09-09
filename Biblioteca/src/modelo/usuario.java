@@ -11,7 +11,7 @@ public class Usuario {
     protected ArrayList <Prestamo> historialPrestamos;
 
 
-    public usuario(String nombres, String apellidos, String dni, String correo_electronico, LocalDate fechaIncripcion,
+    public Usuario(String nombres, String apellidos, String dni, String correo_electronico, LocalDate fechaIncripcion,
             ArrayList<Prestamo> historialPrestamos) {
         this.nombres = nombres;
         this.apellidos = apellidos;
