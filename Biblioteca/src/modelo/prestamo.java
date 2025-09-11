@@ -6,8 +6,6 @@ public class Prestamo {
     public String id_prestamo;
     protected String dni_usuario;
     public String id_libro;
-  
-
     protected LocalDate fechaPrestamo;
     private LocalDate fechaLimite;
     private LocalDate fechaDevolucion;
@@ -61,6 +59,16 @@ public class Prestamo {
     }
     public void setFechaDevolucion(LocalDate fechaDevolucion) {
         this.fechaDevolucion = fechaDevolucion;
+    }
+
+    public void infoPrestamo(){
+        System.out.println("------------------------------------------");
+        System.out.println("Fecha prestamo: " + this.fechaPrestamo);
+        System.out.println("Fecha limite: " + this.fechaLimite);
+        System.out.println("Fecha devolucion: " + this.fechaDevolucion);
+        System.out.println("Id prestamo: " + this.id_prestamo);
+        System.out.println("dni usuario: " + this.dni_usuario);
+        System.out.println("id libro: " + this.id_libro);
     }
 
     // ¿El préstamo está vencido?
