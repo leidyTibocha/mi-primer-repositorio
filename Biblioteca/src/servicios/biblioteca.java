@@ -1,10 +1,10 @@
 package servicios;
-
+import modelo.*;
 public interface Biblioteca {
     //ingresar
-     void ingresarLibro();
-     void registrarUsuario();
-     void realizarPrestamo();
+     void ingresarLibro(Libro libro);
+     void registrarUsuario(Usuario usuario, String dni);
+     void realizarPrestamo(Prestamo prestamo);
 
      //mostrar total
      void mostrarTodosLibros();
@@ -33,6 +33,7 @@ public interface Biblioteca {
 
      //usuarios
      void buscarUsuarioPorDni();
+     void mostrarTotalUsuarios();
      void mostrarHistorialPrestamos();
      void cantidadPrestamosUsuarios();
 
