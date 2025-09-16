@@ -80,4 +80,11 @@ public class Libro {
           System.out.println("Año de publicacion: " + this.añoPublicacion);
           System.out.println("Genero: " + genero.toString());
      }
+
+     public void mostrarGeneroLibroInfo(){
+          System.out.println("Titulo: " + this.titulo);
+          System.out.println("Autor: " + this.nombreAutor + " " + this.apellidoAutor);
+          System.out.println("Año de publicacion: " + this.añoPublicacion);
+          System.out.println("Genero: " + genero.toString());
+     }
 }

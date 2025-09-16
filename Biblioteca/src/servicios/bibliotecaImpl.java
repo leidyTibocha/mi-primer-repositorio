@@ -34,7 +34,10 @@ public class BibliotecaImpl implements Biblioteca{
     }
     @Override
     public void mostrarUsuariosRegistrados() {
-        usuariosAlmacenados.forEach((dni, usuario) -> usuario.mostrarInfoUsuario());
+        usuariosAlmacenados.forEach((dni, usuario) -> {
+        System.out.println("Identificador: " + dni);
+        usuario.mostrarInfoUsuario();
+    });
     }
     @Override
     public void mostrarTodosPrestamos() {
@@ -43,28 +46,66 @@ public class BibliotecaImpl implements Biblioteca{
        }
     }
     @Override
-    public void buscarLibroPorId() {
-      
+    public void buscarLibroPorId(String id_libro) {
+      for (Libro libro : librosAlmacenados) {
+        if(libro.getId_libro().equals(id_libro)){
+            libro.mostrarInfoLibroCompleta();
+            break;
+        }
+      }
+    }
+
+    @Override
+    public void buscarCopiasObra(String id_libro) {
+      for (Libro libro : librosAlmacenados) {
+        if(libro.getId_isbn().equals(id_libro)){
+            libro.mostrarInfoLibroCompleta();
+        }
+      }
+    }
+
+    @Override
+    public void buscarPorGenero(Generos genero) {//mostrar los libros de ese genero
+        for (Libro libro : librosAlmacenados) {
+            if(libro.getGenero() == genero){
+                libro.mostrarGeneroLibroInfo();
+            }
+        }
     }
     @Override
-    public void buscarCopiasObra() {
-       
-    }
-    @Override
-    public void buscarPorGenero() {
-        
-    }
-    @Override
-    public void mostrarPorGeneros() {
+    public void mostrarPorGeneros() {//mostrar todos los generos y sus libros
+     
+        Generos[] generos = Generos.values();
+        for(Generos e: generos){
+            System.out.println("      " + e.getDescripcion());
+            for(Libro libro : librosAlmacenados){
+                if (libro.getGenero() == e) {
+                    libro.mostrarGeneroLibroInfo();
+                }
+            }
+        }
       
     }
     @Override
     public void mostrarCantidadLibros() {
-        
+        System.out.println(librosAlmacenados.size());        
     }
     @Override
     public void mostrarCantidadLibrosPorGenero() {
-       
+       Generos[] generos = Generos.values();
+
+       for(Generos e: generos){
+            System.out.println(e.getDescripcion());
+            int cantidadLibros = 0;
+            
+            for(Libro libro : librosAlmacenados){
+                if (libro.getGenero() == e) {
+                    cantidadLibros ++;
+                }
+            }
+
+             System.out.println( cantidadLibros);
+        }
     }
     @Override
     public void buscarPrestamoPorId() {

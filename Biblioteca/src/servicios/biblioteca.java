@@ -12,9 +12,9 @@ public interface Biblioteca {
      void mostrarTodosPrestamos();
 
      // libros
-     void buscarLibroPorId ();
-     void buscarCopiasObra();
-     void buscarPorGenero();
+     void buscarLibroPorId (String id_libro);
+     void buscarCopiasObra(String id_obra);
+     void buscarPorGenero(Generos genero);
      void mostrarPorGeneros();
      void mostrarCantidadLibros();
      void mostrarCantidadLibrosPorGenero();
