@@ -1,5 +1,5 @@
 package servicios;
 
-public class bibliotecaImpl {
+public class BibliotecaImpl {
 
 }

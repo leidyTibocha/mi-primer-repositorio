@@ -1,5 +1,5 @@
 package servicios;
 
-public interface biblioteca {
+public interface Biblioteca {
 
 }
