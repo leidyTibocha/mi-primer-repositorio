@@ -21,18 +21,15 @@ public interface Biblioteca {
 
 
      //prestamos
-     void buscarPrestamoPorId();
-     void buscarPrestamoPorDNI();
-     void buscarPrestamoPorIdLibro();
-     void mostrarFechaPrestamos();
-     void mostrarFechasLimitesPrestamos();
-     void mostrarFechasDevolucion();
+     void buscarPrestamoPorId(String id);
+     void buscarPrestamoPorDNI(String dni);
+     void buscarPrestamoPorIdLibro(String idLibro);
      void mostrarPrestamosVencidos();
      void mostrarCantidadPrestamos();
      void mostrarPrestamosPorGeneros();
 
      //usuarios
-     void buscarUsuarioPorDni();
+     void buscarUsuarioPorDni(String dni);
      void mostrarTotalUsuarios();
      void mostrarHistorialPrestamos();
      void cantidadPrestamosUsuarios();
