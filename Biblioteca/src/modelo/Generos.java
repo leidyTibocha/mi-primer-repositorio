@@ -1,39 +1,45 @@
 package modelo;
 
 public enum Generos {
-    FANTASIA("Fantasía"),
-    CIENCIA_FICCION("Ciencia ficción"),
-    DISTOPIA("Distopía"),
-    AVENTURA("Aventura"),
-    ROMANCE("Romance"),
-    MISTERIO("Misterio"),
-    THRILLER("Thriller / Suspenso"),
-    TERROR("Terror"),
-    HISTORICO("Histórico"),
-    POLICIACO("Policíaco"),
-    LITERARIA("Ficción literaria"),
-    REALISMO_MAGICO("Realismo mágico"),
-    NOVELA_GRAFICA("Novela gráfica"),
-    CUENTO("Cuento"),
-    POESIA("Poesía"),
-    DRAMA("Drama / Teatro"),
-    JUVENIL("Juvenil"),
-    INFANTIL("Infantil"),
-    BIOGRAFIA("Biografía"),
-    ENSAYO("Ensayo"),
-    DIVULGACION("Divulgación");
+    FANTASIA(1, "Fantasía"),
+    CIENCIA_FICCION(2, "Ciencia ficción"),
+    DISTOPIA(3, "Distopía"),
+    AVENTURA(4, "Aventura"),
+    ROMANCE(5, "Romance"),
+    MISTERIO(6, "Misterio"),
+    THRILLER(7, "Thriller / Suspenso"),
+    TERROR(8, "Terror"),
+    HISTORICO(9, "Histórico"),
+    POLICIACO(10, "Policíaco"),
+    LITERARIA(11, "Ficción literaria"),
+    REALISMO_MAGICO(12, "Realismo mágico"),
+    NOVELA_GRAFICA(13, "Novela gráfica"),
+    CUENTO(14, "Cuento"),
+    POESIA(15, "Poesía"),
+    DRAMA(16, "Drama / Teatro"),
+    JUVENIL(17, "Juvenil"),
+    INFANTIL(18, "Infantil"),
+    BIOGRAFIA(19, "Biografía"),
+    ENSAYO(20, "Ensayo"),
+    DIVULGACION(21, "Divulgación");
 
-    private final String nameGenero;
+    private final int codigo;
+    private final String descripcion;
 
-    Generos (String nameGenero) {
-        this.nameGenero = nameGenero;
+    Generos(int codigo, String descripcion) {
+        this.codigo = codigo;
+        this.descripcion = descripcion;
     }
 
-    
-    @Override
-    public String toString() {
-        return nameGenero;
-
+    public int getCodigo() {
+        return codigo;
     }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
 
 }
+
+

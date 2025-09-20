@@ -11,8 +11,7 @@ public class Usuario {
     protected ArrayList <Prestamo> historialPrestamos;
 
 
-    public Usuario(String nombres, String apellidos, String dni, String correo_electronico, LocalDate fechaIncripcion,
-            ArrayList<Prestamo> historialPrestamos) {
+    public Usuario(String nombres, String apellidos, String dni, String correo_electronico, LocalDate fechaIncripcion, ArrayList<Prestamo> historialPrestamos) {
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.dni = dni;
@@ -21,7 +20,15 @@ public class Usuario {
         this.historialPrestamos = historialPrestamos;
     }
 
-    
+      public void mostrarHistorialPrestamos(){
+        for(Prestamo p: historialPrestamos){
+            p.infoPrestamo();
+        }
+    }
+      public void cantidadPrestamos(){
+        System.out.println("Cantidad de prestamos: " + historialPrestamos.size());
+    }
+
     public String getNombres() {
         return nombres;
     }

@@ -64,12 +64,26 @@ public class Libro {
           this.genero = genero;
      }
      
-
      public void mostrarInfoLibro(){
+          System.out.println("id libro: " + this.id_libro);
+          System.out.println("Titulo: " + this.titulo);
+           System.out.println("Autor: " + this.nombreAutor + " " + this.apellidoAutor);
+          System.out.println("Año de publicacion: " + this.añoPublicacion);
+          System.out.println("Genero: " + genero.toString());
+     }
+
+     public void mostrarInfoLibroCompleta(){
           System.out.println("id libro: " + this.id_libro);
           System.out.println("id obra: " + this.id_isbn);
           System.out.println("Titulo: " + this.titulo);
           System.out.println("nombres y apellidos del autor: " + this.nombreAutor + " " + this.apellidoAutor);
+          System.out.println("Año de publicacion: " + this.añoPublicacion);
+          System.out.println("Genero: " + genero.toString());
+     }
+
+     public void mostrarGeneroLibroInfo(){
+          System.out.println("Titulo: " + this.titulo);
+          System.out.println("Autor: " + this.nombreAutor + " " + this.apellidoAutor);
           System.out.println("Año de publicacion: " + this.añoPublicacion);
           System.out.println("Genero: " + genero.toString());
      }
