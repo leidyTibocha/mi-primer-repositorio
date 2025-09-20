@@ -53,16 +53,7 @@ src/
 
 ````
 
----
 
-##  Ejemplo de uso
-```bash
-# Compilar
-javac src/**/*.java -d bin
-
-# Ejecutar
-java -cp bin Main
-````
 
 ---
 
