@@ -6,7 +6,7 @@ public interface Biblioteca {
     //ingresar
      void ingresarLibro(Libro libro) throws CopiaYaExiste;
      void registrarUsuario(Usuario usuario, String dni) throws UsuarioYaExiste;
-     void realizarPrestamo(Prestamo prestamo) throws LibroNoEncontradoException, LibroNoDisponibleException, UsuarioNoEncontradoException, UsuarioYaTienePrestamoException;
+     void realizarPrestamo(Prestamo prestamo) throws LibroNoEncontradoException, LibroNoDisponibleException, UsuarioNoEncontradoException;
 
 
      //mostrar total
@@ -15,15 +15,16 @@ public interface Biblioteca {
      void mostrarTodosPrestamos();
 
      // libros
-     void buscarLibroPorId (String id_libro) throws LibroNoEncontradoException ;
-     void buscarCopiasObra(String id_obra) throws LibroNoEncontradoException ;
-     void buscarPorGenero(Generos genero)  throws LibroNoEncontradoException;
+     Libro buscarLibroPorId (String id_libro) throws LibroNoEncontradoException;
+     void  mostrarCopiasObra(String id_obra) throws LibroNoEncontradoException ;
+     void mostrarPorGenero(Generos genero)  throws LibroNoEncontradoException;
      void mostrarPorGeneros();
      void mostrarCantidadLibros();
      void mostrarCantidadLibrosPorGenero();
 
 
      //prestamos
+    void buscarPrestamoPorId(String id);
      void buscarPrestamoPorDNI(String dni) throws PrestamoNoEncontradoException;
      void buscarPrestamoPorIdLibro(String idLibro) throws PrestamoNoEncontradoException;
      void mostrarPrestamosVencidos() throws PrestamoYaVencidoException;
@@ -35,6 +36,7 @@ public interface Biblioteca {
      void mostrarTotalUsuarios();
      void mostrarHistorialPrestamos();
      void cantidadPrestamosUsuarios();
+  
 
 
 }

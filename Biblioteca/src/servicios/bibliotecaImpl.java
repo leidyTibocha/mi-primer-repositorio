@@ -1,6 +1,6 @@
 package servicios;
 import modelo.*;
-
+import excepciones.*;
 import java.util.*;
 
 public class BibliotecaImpl implements Biblioteca {
@@ -9,18 +9,49 @@ public class BibliotecaImpl implements Biblioteca {
     private final Map<String, Usuario> usuariosAlmacenados = new HashMap<>();
 
     @Override
-    public void ingresarLibro(Libro libro) {
-        librosAlmacenados.add(libro);
+    public void ingresarLibro(Libro libro) throws CopiaYaExiste {
+        for (Libro l : librosAlmacenados) {
+        if (l.getId_libro().equals(libro.getId_libro())) {
+            throw new CopiaYaExiste("Ya existe un libro con ese ID");
+        }
+    }
+        
     }
 
     @Override
-    public void registrarUsuario(Usuario usuario, String dni) {
-        usuariosAlmacenados.put(dni, usuario);
+    public void registrarUsuario(Usuario usuario, String dni) throws UsuarioYaExiste {
+        boolean usuarioYaExiste = usuariosAlmacenados.values().stream()
+        .anyMatch(u -> u.getDni().equals(dni));
+
+        if(usuarioYaExiste){
+            throw new UsuarioYaExiste("El usuario ya esta registrario");
+        }else{
+            usuariosAlmacenados.put(dni, usuario);
+        }
+
     }
 
     @Override
-    public void realizarPrestamo(Prestamo prestamo) {
-        prestamosAlmacenados.add(prestamo);
+    public void realizarPrestamo(Prestamo prestamo)  throws LibroNoEncontradoException, LibroNoDisponibleException, UsuarioNoEncontradoException{
+        // LibroNoEncontradoException, LibroNoDisponibleException, UsuarioNoEncontradoException, UsuarioYaTienePrestamoException
+
+        boolean libroExiste = librosAlmacenados.stream() //no existe el libro
+        .anyMatch(l -> l.getId_libro().equals(prestamo.getId_libro()));
+        boolean libroNoDisponible  = prestamosAlmacenados.stream() //osea que ya fue prestado
+        .anyMatch(p -> p.getId_libro().equals(prestamo.getId_libro()));
+        boolean usuarioNoEncontrado = usuariosAlmacenados.values().stream() //usuario no existe
+        .anyMatch(u -> u.getDni().equals(prestamo.getDni_usuario()));
+
+        if(libroExiste == false ){
+            throw new LibroNoEncontradoException("No se encontro el libro, verifique el id del libro");
+        }else if(libroNoDisponible){
+            throw new LibroNoDisponibleException("El libro ya fue prestado, intente con otra copia");
+        }else if(usuarioNoEncontrado == false){
+            throw new UsuarioNoEncontradoException("No se encontro el dni del usuario, asegurese que dni este correcto o que este registrado");
+        }else{
+            prestamosAlmacenados.add(prestamo);
+        }
+
     }
 
     @Override
@@ -46,22 +77,32 @@ public class BibliotecaImpl implements Biblioteca {
     }
 
     @Override
-    public void buscarLibroPorId(String idLibro) {
-        librosAlmacenados.stream()
-                .filter(l -> Objects.equals(l.getId_libro(), idLibro))
-                .findFirst()
-                .ifPresent(Libro::mostrarInfoLibroCompleta);
+    public Libro buscarLibroPorId(String idLibro) throws LibroNoEncontradoException{
+        return librosAlmacenados.stream()
+            .filter(l -> Objects.equals(l.getId_libro(), idLibro))
+            .findFirst()
+            .orElseThrow(() -> new LibroNoEncontradoException("No se encontró libro con ID: " + idLibro));
+    }
+    
+
+    @Override
+    public void mostrarCopiasObra(String idIsbn) throws LibroNoEncontradoException {
+        boolean copiaValida = librosAlmacenados.stream()
+        .anyMatch(l -> l.getId_isbn().equals(idIsbn));
+
+
+        if(copiaValida){
+            System.out.println("ID OBRA: "  + idIsbn);
+            librosAlmacenados.stream()
+            .filter(l -> l.getId_isbn().equals(idIsbn))
+            .forEach(l -> l.mostrarInfoLibro());
+        }else {
+            throw new LibroNoEncontradoException("No se encontro la obra, verifique que este bien escrita");
+        }
     }
 
     @Override
-    public void buscarCopiasObra(String idIsbn) {
-        librosAlmacenados.stream()
-                .filter(l -> Objects.equals(l.getId_isbn(), idIsbn))
-                .forEach(Libro::mostrarInfoLibroCompleta);
-    }
-
-    @Override
-    public void buscarPorGenero(Generos genero) {
+    public void mostrarPorGenero(Generos genero) { //verificar que el genero exista o noas va alanzar excepcion
         librosAlmacenados.stream()
                 .filter(l -> l.getGenero() == genero)
                 .forEach(Libro::mostrarGeneroLibroInfo);
@@ -95,7 +136,7 @@ public class BibliotecaImpl implements Biblioteca {
 
     @Override
     public void buscarPrestamoPorId(String id) {
-        prestamosAlmacenados.stream()
+         prestamosAlmacenados.stream()
                 .filter(p -> Objects.equals(p.id_prestamo, id))
                 .findFirst()
                 .ifPresent(Prestamo::infoPrestamo);
