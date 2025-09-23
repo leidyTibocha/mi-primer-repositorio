@@ -15,19 +15,18 @@ public interface Biblioteca {
      void mostrarTodosPrestamos();
 
      // libros
-     Libro buscarLibroPorId (String id_libro) throws LibroNoEncontradoException;
+     void buscarLibroPorId (String id_libro) throws LibroNoEncontradoException;
      void  mostrarCopiasObra(String id_obra) throws LibroNoEncontradoException ;
-     void mostrarPorGenero(Generos genero)  throws LibroNoEncontradoException;
+     void mostrarPorGenero(Generos genero) ;
      void mostrarPorGeneros();
      void mostrarCantidadLibros();
      void mostrarCantidadLibrosPorGenero();
 
 
      //prestamos
-    void buscarPrestamoPorId(String id);
      void buscarPrestamoPorDNI(String dni) throws PrestamoNoEncontradoException;
      void buscarPrestamoPorIdLibro(String idLibro) throws PrestamoNoEncontradoException;
-     void mostrarPrestamosVencidos() throws PrestamoYaVencidoException;
+     void mostrarPrestamosVencidos() ;
      void mostrarCantidadPrestamos();
      void mostrarPrestamosPorGeneros();
 
