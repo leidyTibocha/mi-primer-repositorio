@@ -2,8 +2,8 @@ package modelo;
 
 public class Libro {
  
-     public String id_libro; //identificador unico 
-     public String id_isbn; //identificador unico para una obra(en caso de copias)
+     public String id_libro; //identificador unico (cada copia tiene identificador unico)
+     public String id_isbn; //identificador unico para una obra(ejemplo (coraline))
      public String titulo;
      public String nombreAutor;
      public String apellidoAutor;
