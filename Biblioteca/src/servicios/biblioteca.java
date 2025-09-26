@@ -16,7 +16,7 @@ public interface Biblioteca {
 
      // libros
      void buscarLibroPorId (String id_libro) throws LibroNoEncontradoException;
-     void  mostrarCopiasObra(String id_obra) throws LibroNoEncontradoException ;
+     void mostrarCopiasObra(String id_obra) throws LibroNoEncontradoException ;
      void mostrarPorGenero(Generos genero) ;
      void mostrarPorGeneros();
      void mostrarCantidadLibros();
