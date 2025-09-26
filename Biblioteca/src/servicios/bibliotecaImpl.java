@@ -2,6 +2,7 @@ package servicios;
 import modelo.*;
 import util.Serializador;
 import excepciones.*;
+import java.util.concurrent.*;
 
 import java.io.IOException;
 import java.util.*;
@@ -11,7 +12,16 @@ import java.util.stream.Collectors;
     private List<Libro> librosAlmacenados = new ArrayList<>();
     private List<Prestamo> prestamosAlmacenados = new ArrayList<>();
     private Map<String, Usuario> usuariosAlmacenados = new HashMap<>();
-    
+     private ScheduledExecutorService scheduler;
+
+    public BibliotecaImpl(List<Libro> librosAlmacenados, List<Prestamo> prestamosAlmacenados,
+        Map<String, Usuario> usuariosAlmacenados, ScheduledExecutorService scheduler) {
+        this.librosAlmacenados = librosAlmacenados;
+        this.prestamosAlmacenados = prestamosAlmacenados;
+        this.usuariosAlmacenados = usuariosAlmacenados;
+        this.scheduler = scheduler;
+    }
+
     @Override
     public void ingresarLibro(Libro libro) throws CopiaYaExiste {
         boolean existe = librosAlmacenados.stream()
@@ -231,6 +241,13 @@ import java.util.stream.Collectors;
             Serializador.guardar(usuariosAlmacenados, "usuarios.dat");  
             Serializador.guardar(prestamosAlmacenados, "prestamos.dat");
             System.out.println("Todos los datos fueron guardados correctamente");
+
+             // CERRAR EL HILO
+        if (scheduler != null && !scheduler.isShutdown()) {
+            scheduler.shutdown();
+            System.out.println("Sistema de notificaciones desactivado");
+        }
+        
         } catch (IOException e) {
             System.err.println("Error guardando datos: " + e.getMessage());
         }
@@ -272,4 +289,38 @@ import java.util.stream.Collectors;
         }
 }
     
+
+    //hilos 
+    private void verificarYNotificarVencidos() {
+        List<Prestamo> vencidos = prestamosAlmacenados.stream()
+            .filter(Prestamo::estaVencido)
+            .filter(p -> !p.fueDevuelto()) // Solo los no devueltos
+            .collect(Collectors.toList());
+        
+        if (!vencidos.isEmpty()) {
+            System.out.println("\n" + "=".repeat(50));
+            System.out.println(" ALERTA AUTOMATICA: " + vencidos.size() + " prestamo(s) vencido(s)");
+            System.out.println("=".repeat(50));
+            
+            vencidos.forEach(p -> {
+                System.out.println("Libro ID: " + p.getId_libro() + 
+                                " | Usuario: " + p.getDni_usuario() +
+                                " | Días de retraso: " + p.diasDeRetraso());
+            });
+            System.out.println("=".repeat(50) + "\n");
+        }
+    }
+
+    private void iniciarHiloVencidos() {
+        scheduler = Executors.newScheduledThreadPool(1);
+        
+        // El vigilante ejecuta cada 15 segundos
+        scheduler.scheduleAtFixedRate(() -> {
+            verificarYNotificarVencidos();
+        }, 10, 15, TimeUnit.SECONDS);  // 10s delay inicial, después cada 15s
+        
+        System.out.println("Sistema de notificaciones de vencidos ACTIVADO");
+    }
+
+
 }
