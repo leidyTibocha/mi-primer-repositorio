@@ -1,14 +1,17 @@
 package servicios;
 import modelo.*;
+import util.Serializador;
 import excepciones.*;
+
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class BibliotecaImpl implements Biblioteca {
-    private final List<Libro> librosAlmacenados = new ArrayList<>();
-    private final List<Prestamo> prestamosAlmacenados = new ArrayList<>();
-    private final Map<String, Usuario> usuariosAlmacenados = new HashMap<>();
-
+    public class BibliotecaImpl implements Biblioteca {
+    private List<Libro> librosAlmacenados = new ArrayList<>();
+    private List<Prestamo> prestamosAlmacenados = new ArrayList<>();
+    private Map<String, Usuario> usuariosAlmacenados = new HashMap<>();
+    
     @Override
     public void ingresarLibro(Libro libro) throws CopiaYaExiste {
         boolean existe = librosAlmacenados.stream()
@@ -219,4 +222,54 @@ public class BibliotecaImpl implements Biblioteca {
         usuariosAlmacenados.values()
                 .forEach(Usuario::cantidadPrestamos);
     }
+
+
+        // Método para GUARDAR todos los datos
+    public void guardarDatos() {
+        try {
+            Serializador.guardar(librosAlmacenados, "libros.dat");
+            Serializador.guardar(usuariosAlmacenados, "usuarios.dat");  
+            Serializador.guardar(prestamosAlmacenados, "prestamos.dat");
+            System.out.println("Todos los datos fueron guardados correctamente");
+        } catch (IOException e) {
+            System.err.println("Error guardando datos: " + e.getMessage());
+        }
+    }
+
+    // Método para CARGAR todos los datos
+    @SuppressWarnings("unchecked")
+    public void cargarDatos() {
+        try {
+            // Intentar cargar libros
+            try {
+                List<Libro> libros = (List<Libro>) Serializador.cargar("libros.dat");
+                librosAlmacenados.clear();
+                librosAlmacenados.addAll(libros);
+            } catch (IOException | ClassNotFoundException e) {
+                System.out.println("No se encontraron libros previos");
+            }
+            
+            // Intentar cargar usuarios
+            try {
+                Map<String, Usuario> usuarios = (Map<String, Usuario>) Serializador.cargar("usuarios.dat");
+                usuariosAlmacenados.clear();
+                usuariosAlmacenados.putAll(usuarios);
+            } catch (IOException | ClassNotFoundException e) {
+                System.out.println("No se encontraron usuarios previos");
+            }
+            
+            // Intentar cargar préstamos
+            try {
+                List<Prestamo> prestamos = (List<Prestamo>) Serializador.cargar("prestamos.dat");
+                prestamosAlmacenados.clear();
+                prestamosAlmacenados.addAll(prestamos);
+            } catch (IOException | ClassNotFoundException e) {
+                System.out.println("No se encontraron préstamos previos");
+            }
+            
+        } catch (Exception e) {
+            System.out.println("Error general cargando datos: " + e.getMessage());
+        }
+}
+    
 }

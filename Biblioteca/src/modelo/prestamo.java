@@ -1,8 +1,9 @@
 package modelo;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.io.Serializable;
 
-public class Prestamo {
+public class Prestamo implements Serializable {
     public String id_prestamo;
     protected String dni_usuario;
     public String id_libro;

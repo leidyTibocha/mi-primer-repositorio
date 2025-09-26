@@ -1,8 +1,9 @@
 package modelo;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Usuario {
+public class Usuario implements Serializable {
     public String nombres;
     public String apellidos;
     protected String dni;

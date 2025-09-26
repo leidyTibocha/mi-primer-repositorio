@@ -1,6 +1,7 @@
 package modelo;
+import java.io.Serializable;
 
-public class Libro {
+public class Libro implements Serializable {
  
      public String id_libro; //identificador unico (cada copia tiene identificador unico)
      public String id_isbn; //identificador unico para una obra(ejemplo (coraline))

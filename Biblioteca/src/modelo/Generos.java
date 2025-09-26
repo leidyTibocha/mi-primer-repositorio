@@ -1,5 +1,6 @@
 package modelo;
 
+
 public enum Generos {
     FANTASIA(1, "Fantasía"),
     CIENCIA_FICCION(2, "Ciencia ficción"),

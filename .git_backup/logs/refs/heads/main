@@ -1,0 +1,11 @@
+0000000000000000000000000000000000000000 94e3da273ce8eae6dae7e70af486ec388d0f3cba LeidyLorena <leidylorenatibocha9b@gmail.com> 1757436677 -0500	commit (initial): mi primer commit
+94e3da273ce8eae6dae7e70af486ec388d0f3cba 94e3da273ce8eae6dae7e70af486ec388d0f3cba LeidyLorena <leidylorenatibocha9b@gmail.com> 1757436689 -0500	Branch: renamed refs/heads/master to refs/heads/main
+94e3da273ce8eae6dae7e70af486ec388d0f3cba c08161e3cc85ede9cb6c9bdb6baa6ba2530856dd LeidyLorena <leidylorenatibocha9b@gmail.com> 1757437484 -0500	commit: Projecto biblioteca con java puro
+c08161e3cc85ede9cb6c9bdb6baa6ba2530856dd 3482c55d0c21a57e06e41aa2394275f4f8a8785d LeidyLorena <leidylorenatibocha9b@gmail.com> 1757437944 -0500	commit: se dejo el readme creado por visual code
+3482c55d0c21a57e06e41aa2394275f4f8a8785d a071c09f93019ca809e2896d8e2a73e32faa3cb5 LeidyLorena <leidylorenatibocha9b@gmail.com> 1757452226 -0500	commit: Creando estructura del sistema, clases de cada package...
+a071c09f93019ca809e2896d8e2a73e32faa3cb5 d4018aa86c9efe5443fa3fbe2579775e181c2ab1 LeidyLorena <leidylorenatibocha9b@gmail.com> 1757453650 -0500	pull origin main: Merge made by the 'ort' strategy.
+d4018aa86c9efe5443fa3fbe2579775e181c2ab1 7556f768145eeb929b799ca120f9d3e361be6c33 LeidyLorena <leidylorenatibocha9b@gmail.com> 1757457845 -0500	merge modelo: Fast-forward
+7556f768145eeb929b799ca120f9d3e361be6c33 645a07df09fda2ed0d0a92c606a125edc2a399dd LeidyLorena <leidylorenatibocha9b@gmail.com> 1758055246 -0500	commit: cambiando algunos nombres de las clases
+645a07df09fda2ed0d0a92c606a125edc2a399dd 14faf623e136af0cb308782259de8bcfe32403c0 LeidyLorena <leidylorenatibocha9b@gmail.com> 1758383420 -0500	commit (merge): guardando cambios de la carpeta servicios
+14faf623e136af0cb308782259de8bcfe32403c0 f2b301396e668f041f905251d3ae5cf40fbb29bb LeidyLorena <leidylorenatibocha9b@gmail.com> 1758406319 -0500	pull origin main: Fast-forward
+f2b301396e668f041f905251d3ae5cf40fbb29bb af4a2c2d7462afa9058a34e9caeb1850151b069e LeidyLorena <leidylorenatibocha9b@gmail.com> 1758661878 -0500	merge excepciones: Merge made by the 'ort' strategy.

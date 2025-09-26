@@ -37,5 +37,9 @@ public interface Biblioteca {
      void cantidadPrestamosUsuarios();
   
 
+     //serializador, guardar y cargar datos
+     void guardarDatos();
+     void cargarDatos();
+
 
 }
