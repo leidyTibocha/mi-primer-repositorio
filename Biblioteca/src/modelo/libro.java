@@ -64,6 +64,7 @@ public class Libro implements Serializable {
      public void setGenero(Generos genero) {
           this.genero = genero;
      }
+
      
      public void mostrarInfoLibro(){
           System.out.println("id libro: " + this.id_libro);

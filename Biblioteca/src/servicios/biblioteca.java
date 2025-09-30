@@ -17,7 +17,7 @@ public interface Biblioteca {
      // libros
      void buscarLibroPorId (String id_libro) throws LibroNoEncontradoException;
      void mostrarCopiasObra(String id_obra) throws LibroNoEncontradoException ;
-     void mostrarPorGenero(Generos genero) ;
+     void mostrarPorGenero(Generos genero);
      void mostrarPorGeneros();
      void mostrarCantidadLibros();
      void mostrarCantidadLibrosPorGenero();
@@ -42,4 +42,6 @@ public interface Biblioteca {
      void cargarDatos();
 
 
+     //generar codigo libros
+    String generarCodigoLibro();
 }

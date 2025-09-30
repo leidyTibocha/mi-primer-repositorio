@@ -1,11 +1,13 @@
 package servicios;
+import excepciones.*;
+import java.io.IOException;
+import java.security.SecureRandom;
+import java.time.Year;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.stream.Collectors;
 import modelo.*;
 import util.Serializador;
-import excepciones.*;
-import java.util.concurrent.*;
-import java.io.IOException;
-import java.util.*;
-import java.util.stream.Collectors;
 
     public class BibliotecaImpl implements Biblioteca {
     private List<Libro> librosAlmacenados = new ArrayList<>();
@@ -13,14 +15,7 @@ import java.util.stream.Collectors;
     private Map<String, Usuario> usuariosAlmacenados = new HashMap<>();
      private ScheduledExecutorService scheduler;
 
-    public BibliotecaImpl(List<Libro> librosAlmacenados, List<Prestamo> prestamosAlmacenados,
-        Map<String, Usuario> usuariosAlmacenados, ScheduledExecutorService scheduler) {
-        this.librosAlmacenados = librosAlmacenados;
-        this.prestamosAlmacenados = prestamosAlmacenados;
-        this.usuariosAlmacenados = usuariosAlmacenados;
-        this.scheduler = scheduler;
-    }
-
+        //ingresar
     @Override
     public void ingresarLibro(Libro libro) throws CopiaYaExiste {
         boolean existe = librosAlmacenados.stream()
@@ -68,6 +63,8 @@ import java.util.stream.Collectors;
 
     }
 
+
+     //mostrar total
     @Override
     public void mostrarTodosLibros() {
         System.out.println("TODOS LOS LIBROS");
@@ -90,6 +87,9 @@ import java.util.stream.Collectors;
         prestamosAlmacenados.forEach(Prestamo::infoPrestamo);
     }
 
+
+    
+    // libros
     @Override
     public void buscarLibroPorId(String idLibro) throws LibroNoEncontradoException{
         Libro libro = librosAlmacenados.stream()
@@ -119,7 +119,7 @@ import java.util.stream.Collectors;
     }
 
     @Override
-    public void mostrarPorGenero(Generos genero) { //verificar que el genero exista o nos va a lanzar excepcion
+    public void mostrarPorGenero(Generos genero) { 
          System.out.println("      " + genero.getDescripcion());
         librosAlmacenados.stream()
             .filter(l -> l.getGenero() == genero)
@@ -152,6 +152,17 @@ import java.util.stream.Collectors;
                 });
     }
 
+    
+    public static boolean codigoRepetido(String codigo){
+          boolean existe = librosAlmacenados.stream()
+          .anyMatch(l -> l.getId_libro().equals(codigo));
+
+          return existe;
+     }
+
+    
+    
+     //prestamos
     @Override
     public void buscarPrestamoPorDNI(String dni) throws PrestamoNoEncontradoException{
        List<Prestamo> prestamos = prestamosAlmacenados.stream()
@@ -205,6 +216,10 @@ import java.util.stream.Collectors;
         }
     }
 
+
+
+
+    //usuarios
     @Override
     public void buscarUsuarioPorDni(String dni) throws UsuarioNoEncontradoException {
        Usuario usuario = usuariosAlmacenados.get(dni);
@@ -233,7 +248,9 @@ import java.util.stream.Collectors;
     }
 
 
-        // Método para GUARDAR todos los datos
+    
+    //serializador, guardar y cargar datos
+     @Override
     public void guardarDatos() {
         try {
             Serializador.guardar(librosAlmacenados, "libros.dat");
@@ -310,6 +327,7 @@ import java.util.stream.Collectors;
         }
     }
 
+
     private void iniciarHiloVencidos() {
         scheduler = Executors.newScheduledThreadPool(1);
         
@@ -321,5 +339,24 @@ import java.util.stream.Collectors;
         System.out.println("Sistema de notificaciones de vencidos ACTIVADO");
     }
 
+    @Override
+    public String generarCodigoLibro() {
+    String codigo;
+    do {
+        String CARACTERES = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        SecureRandom random = new SecureRandom();
+        StringBuilder sufijo = new StringBuilder(5);
+
+        for (int i = 0; i < 5; i++) {
+            int index = random.nextInt(CARACTERES.length());
+            sufijo.append(CARACTERES.charAt(index));
+        }
+
+        codigo = "LIB-" + Year.now().getValue() + "-" + sufijo;
+
+    } while (codigoRepetido(codigo)); // vuelve a intentar si está repetido
+
+    return codigo;
+}
 
 }

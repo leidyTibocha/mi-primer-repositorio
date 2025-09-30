@@ -40,6 +40,21 @@ public enum Generos {
         return descripcion;
     }
 
+    public static Generos fromCodigo(int codigo) {
+        for (Generos g : Generos.values()) {
+            if (g.getCodigo() == codigo) {
+                return g;
+            }
+        }
+        return null; // si no encuentra el código
+    }
+
+    public static void mostrarGeneros(){
+       for (Generos g : Generos.values()) {
+            System.out.println(g.getCodigo() + " " + g.getDescripcion());
+        } 
+    }
+
 
 }
 
