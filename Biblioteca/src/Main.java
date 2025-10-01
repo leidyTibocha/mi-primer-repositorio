@@ -1,5 +1,7 @@
 
 import excepciones.*;
+
+import java.time.LocalDate;
 import java.util.*;
 import modelo.*;
 import servicios.Biblioteca;
@@ -23,6 +25,7 @@ public class Main {
 
         //menu (se ejecuta solo al dar salir )
         while (opcionMenu != 6) { 
+
             System.out.println("           MENU PRINCIPAL");
             System.out.println(" 1.     Gestión de Libros");
             System.out.println(" 2.     Gestión de Usuarios");
@@ -41,7 +44,7 @@ public class Main {
                         opcionSubMenus = 0;
                         while(opcionSubMenus != 9){
                         
-                        System.out.println("\n===== GESTIÓN DE LIBROS =====");
+                        System.out.println("\n======= GESTIÓN DE LIBROS =======");
                         System.out.println("1. Ingresar libro");
                         System.out.println("2. Buscar libro por ID");
                         System.out.println("3. Mostrar copias de una obra");
@@ -53,12 +56,14 @@ public class Main {
                         System.out.println("9. Volver al menú principal");
                         System.out.print("Seleccione una opción: ");
                         opcionSubMenus = scanner.nextInt(); 
-                        scanner.next();
+                        scanner.nextLine();
+                        
                         
                         switch (opcionSubMenus) {
 
                             case 1 -> {
                                 try{
+                                    System.out.println("======= Ingresar Libro =======");
                                     System.out.println("Ingrese el codigo general para la obra:");
                                     String codigoGeneral = scanner.nextLine();
                                     String codigoUnico = biblioteca.generarCodigoLibro() ;
@@ -100,13 +105,12 @@ public class Main {
                             }
 
                             case 2 -> {
-                                //BUSCAR libro por id
+                                System.out.println("======= Buscar libro por id =======");
                                 try {
 
                                     System.out.println("Ingrese el codigo unico del libro: ");
-                                    String codigo = scanner.nextLine();
-                                    String resultado = codigo.replaceAll("\\s+", "");
-                                    biblioteca.buscarLibroPorId(resultado);
+                                    String codigo = scanner.nextLine().replaceAll("\\s+", "");
+                                    biblioteca.buscarLibroPorId(codigo);
                                     
                                 } catch (LibroNoEncontradoException e) {
                                     System.out.println("Error: " + e.getMessage());
@@ -115,10 +119,11 @@ public class Main {
                             }
 
                             case 3 -> {
+                                System.out.println("======= Mostrar copias de una obra =======");
                                 try{
                                 System.out.println("Ingrese el codigo general de la obra: ");
                                 String codigo = scanner.nextLine().replaceAll("\\s+", "");
-                                biblioteca.mostrarCopiasObra(resultado);
+                                biblioteca.mostrarCopiasObra(codigo);
 
                                 }catch(LibroNoEncontradoException e){
                                     System.out.println("Error: " + e.getMessage());
@@ -126,6 +131,7 @@ public class Main {
                             }
 
                             case 4 -> {
+                                System.out.println("======= Mostrar libros por genero =======");
 
                                 Generos.mostrarGeneros();
                                 System.out.println("Escriba el código del genero que desea filtrar");
@@ -142,19 +148,22 @@ public class Main {
                             }
 
                             case 5 -> {
+                                System.out.println("======= Mostrar todos los Generos con sus libros =======");
                                 biblioteca.mostrarPorGeneros();
                             }
 
                             case 6 -> {
-                                
+                                System.out.println("======= Mostrar todos los Libros =======");
                                 biblioteca.mostrarTodosLibros();
                             }
 
                             case 7 -> {
+                                System.out.println("======= Mostrar cantida =======");
                                 biblioteca.mostrarCantidadLibros();
                             }
 
                             case 8 -> {
+                                System.out.println("======= Mostrar cantidad de libro por genero =======");
                                 biblioteca.mostrarCantidadLibrosPorGenero();
                             }
 
@@ -181,39 +190,83 @@ public class Main {
                         System.out.println("7. Volver al menú principal");
                         System.out.print("Seleccione una opción: ");
                         opcionSubMenus = scanner.nextInt();
-                        scanner.next();
+                        scanner.nextLine();
+                        
                         
                         switch(opcionSubMenus){
                          
                             case 1 ->{
+                                System.out.println("======= Registrar Usuario =======");
+
+                                try{
+                                Usuario usuario;
+                                System.out.println("=== Registro de Usuario (Administrador) ===");
+
+                                System.out.print("Ingrese los nombres: ");
+                                String nombres = scanner.nextLine();
+
+                                System.out.print("Ingrese los apellidos: ");
+                                String apellidos = scanner.nextLine();
+
+                                System.out.print("Ingrese el DNI: ");
+                                String dni = scanner.nextLine();
+
+                                System.out.print("Ingrese el correo electrónico: ");
+                                String correo_electronico = scanner.nextLine();
+
+                                usuario = new Usuario(nombres, apellidos, dni, correo_electronico, null, null);
+
+                                System.out.print("Ingrese la fecha de inscripción (yyyy-MM-dd): ");
+                                String fechaStr = scanner.nextLine();
+                                usuario.setFechaIncripcion(LocalDate.parse(fechaStr));
+
+                                
+                                biblioteca.registrarUsuario(usuario);
+
+                                }catch(UsuarioYaExiste e){
+                                    System.out.println("Error: " + e.getMessage());
+                                }
 
                             }
 
                             case 2 ->{
+                                System.out.println("======= Buscar usuario pot DNI =======");
                                 try{
                                 System.out.println("Ingrese el dni del usuario: ");
                                 String dni = scanner.nextLine().replaceAll("\\s+", "");
-                                biblioteca.buscarUsuarioPorDni(dni);
-                                
-
+                                biblioteca.mostrarUsuarioPorDni(dni);
                                 }catch(UsuarioNoEncontradoException e){
                                     System.out.println("Error: " + e.getMessage());
                                 }
                             }
 
                             case 3 ->{
+                                System.out.println("======= Todos los usuarios registrados =======");
                                 biblioteca.mostrarUsuariosRegistrados();
                             }
 
                             case 4 ->{
+                                System.out.println("======= Cantidad total de usuarios =======");
                                 biblioteca.mostrarTotalUsuarios();
                             }
 
                             case 5 ->{
+                                System.out.println("=======  Historial de prestamos de un usuario =======");
+                                System.out.println("Ingrese el dni del usuario: ");
+                                String dni = scanner.nextLine();
+
+                                try {
+                                    Usuario usuario = biblioteca.buscarUsuarioPorDni(dni);
+
+                                    usuario.mostrarHistorialPrestamos();
+                                } catch (UsuarioNoEncontradoException e) {
+                                    System.out.println("Error: " + e.getMessage());
+                                }
 
                             }
 
                             case 6 ->{
+                                System.out.println("======= Mostrar cantidad de prestaos por usuario =======");
                                 biblioteca.mostrarHistorialPrestamos();
                             }
                         
@@ -240,35 +293,89 @@ public class Main {
                         System.out.println("8. Volver al menú principal");
                         System.out.print("Seleccione una opción: ");
                         opcionSubMenus = scanner.nextInt();
-                        scanner.next();
+                        scanner.nextLine();
 
                         switch (opcionSubMenus) {
                          
                             case 1 ->{
+                                try{
+                                // Pedimos los datos del préstamo
+                                System.out.println("======= Registro de Préstamo =======");
+
+                                System.out.print("Ingrese el DNI del usuario: ");
+                                String dni_usuario = scanner.nextLine().replaceAll("\\s+", "");
+
+                                System.out.print("Ingrese el ID del libro: ");
+                                String id_libro = scanner.nextLine().replaceAll("\\s+", "");
+
+                                System.out.print("Ingrese la fecha del préstamo (yyyy-MM-dd): ");
+                                LocalDate fechaPrestamo = LocalDate.parse(scanner.nextLine());
+
+                                System.out.print("Ingrese la fecha límite de devolución (yyyy-MM-dd): ");
+                                LocalDate fechaLimite = LocalDate.parse(scanner.nextLine());
+
+                                System.out.print("Ingrese la fecha de devolución (yyyy-MM-dd) o presione Enter si aún no se devuelve: ");
+                                String fechaDevolucionStr = scanner.nextLine();
+                                LocalDate fechaDevolucion = null;
+                                if (!fechaDevolucionStr.isBlank()) {
+                                    fechaDevolucion = LocalDate.parse(fechaDevolucionStr);
+                                }
+
+                                biblioteca.realizarPrestamo(new Prestamo(dni_usuario, id_libro, fechaPrestamo, fechaLimite, fechaDevolucion));
+
+                            }catch(LibroNoEncontradoException e){
+                                System.out.println("Error: " + e.getMessage());
+                            }catch(LibroNoDisponibleException e){
+                                System.out.println("Error: " + e.getMessage());
+                            }catch(UsuarioNoEncontradoException e){
+                                System.out.println("Error: " + e.getMessage());
+                            }
+
+
+                                
+
 
                             }
 
                             case 2 ->{
-
+                                System.out.println("======= Buscar prestamo por DNI =======");
+                                System.out.println("Ingrese el DNI del usuario: ");
+                                String dni = scanner.nextLine().replaceAll("\\s+", "");
+                                try {
+                                    biblioteca.buscarPrestamoPorDNI(dni);
+                                } catch (PrestamoNoEncontradoException e) {
+                                    System.err.println("Error: " + e.getMessage());
+                                }
                             }
                             
                             case 3 ->{
-                                
+                                System.out.println("======= Buscar  prestamo por Id libro =======");
+                                try{
+                                System.out.println("Ingrese el id del libro: ");
+                                String idLibro = scanner.nextLine().replaceAll("\\s+", "");
+                                biblioteca.buscarPrestamoPorIdLibro(idLibro);
+                                }catch(PrestamoNoEncontradoException e){
+                                    System.out.println("Error: " + e.getMessage());
+                                }
                             }
 
                             case 4 ->{
+                                System.out.println("======= Todos los prestamos =======");
                                 biblioteca.mostrarTodosPrestamos();
                             }
 
                             case 5 ->{
+                                System.out.println("======= Prestamos vencidos =======");
                                 biblioteca.mostrarPrestamosVencidos();
                             }
 
                             case 6 ->{
+                                System.out.println("======= Cantiad total de prestamos =======");
                                 biblioteca.mostrarCantidadPrestamos();
                             }
 
                             case 7 ->{
+                                System.out.println("======= Prestamos por genero =======");
                                 biblioteca.mostrarPrestamosPorGeneros();
                             }
 
@@ -294,34 +401,42 @@ public class Main {
                         System.out.println("8. Volver al menú principal");
                         System.out.print("Seleccione una opción: ");
                         opcionSubMenus = scanner.nextInt();
-                        scanner.next();
+                        scanner.nextLine();
+                       
 
                         switch (opcionSubMenus) {
                             case 1 -> {
+                                System.out.println("======= Todos los libros =======");
                                 biblioteca.mostrarTodosLibros();
                             }
 
                             case 2 ->{
+                                System.out.println("======= Todos los usuarios =======");
                                 biblioteca.mostrarUsuariosRegistrados();
                             }
 
                             case 3 -> {
+                                System.out.println("======= Todos los prestamos =======");
                                 biblioteca.mostrarTodosPrestamos();
                             }
 
                             case 4 -> {
+                                System.out.println("======= Cantidad de lirbos por por genero =======");
                                 biblioteca.mostrarCantidadLibrosPorGenero();
                             }
 
                             case 5 -> {
+                                System.out.println("======= Total usuarios =======");
                                 biblioteca.mostrarTotalUsuarios();
                             }
 
                             case 6 -> {
+                                System.out.println("======= Total prestamos =======");
                                 biblioteca.mostrarCantidadPrestamos();
                             }
 
                             case 7 -> {
+                                System.out.println("======= Prestamos vencidos =======");
                                 biblioteca.mostrarPrestamosVencidos();
                             }
 
@@ -333,7 +448,6 @@ public class Main {
                         }
                     }
 
-
                     case 5 -> {
                         opcionSubMenus = 0;
                         while (opcionSubMenus != 3){
@@ -343,19 +457,21 @@ public class Main {
                         System.out.println("3. Volver al menú principal");
                         System.out.print("Seleccione una opción: ");
                         opcionSubMenus = scanner.nextInt();
-                        scanner.next();
+                        scanner.nextLine();
 
                         switch (opcionSubMenus) {
                             case 1 -> {
-
+                                System.out.println("======= Guardar datos =======");
+                                biblioteca.guardarDatos();
                             }
 
                             case 2 -> {
-
+                                System.out.println("======= Cargar datos =======");
+                                biblioteca.cargarDatos();
                             }
 
                             case 3 -> {
-
+                                System.out.println("Volviendo al menu principal....");                            
                             }
                         }
 
@@ -363,15 +479,25 @@ public class Main {
                     }
 
                     case 6 -> {
-                        System.out.println("Saliendo del programa");
+                        System.out.println("Guardando datos antes de salir...");
+                        biblioteca.guardarDatos(); // AGREGAR ESTO
+                        System.out.println("Hasta luego!");
+                        scanner.close();
+                        System.exit(0); // Cierra el programa
                     }
 
 
                 }
             
             } catch (InputMismatchException e) {
-                System.out.println("Error: ingrese solamente lo solicitado");
+                System.out.println("Error: ingrese solamente los datos solicitados");
+                opcionMenu = 0;
+                opcionSubMenus = 0;
+                scanner = new Scanner(System.in);
+            }catch (Exception e){
+                System.out.println("Error inesperado");
             }
+
 
         }
 

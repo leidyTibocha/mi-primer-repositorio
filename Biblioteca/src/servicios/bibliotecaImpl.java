@@ -13,7 +13,13 @@ import util.Serializador;
     private List<Libro> librosAlmacenados = new ArrayList<>();
     private List<Prestamo> prestamosAlmacenados = new ArrayList<>();
     private Map<String, Usuario> usuariosAlmacenados = new HashMap<>();
-     private ScheduledExecutorService scheduler;
+    private ScheduledExecutorService scheduler;
+
+    public BibliotecaImpl() {
+        cargarDatos();
+        iniciarHiloVencidos();
+    }
+
 
         //ingresar
     @Override
@@ -29,12 +35,12 @@ import util.Serializador;
     }
 
     @Override
-    public void registrarUsuario(Usuario usuario, String dni) throws UsuarioYaExiste {
-        if (usuariosAlmacenados.containsKey(dni)) {
+    public void registrarUsuario(Usuario usuario) throws UsuarioYaExiste {
+        if (usuariosAlmacenados.containsKey(usuario.getDni())) {
             throw new UsuarioYaExiste("El usuario ya está registrado");
         }
 
-        usuariosAlmacenados.put(dni, usuario);
+        usuariosAlmacenados.put(usuario.getDni(), usuario);
 
 
     }
@@ -153,7 +159,7 @@ import util.Serializador;
     }
 
     
-    public static boolean codigoRepetido(String codigo){
+    public  boolean codigoRepetido(String codigo){
           boolean existe = librosAlmacenados.stream()
           .anyMatch(l -> l.getId_libro().equals(codigo));
 
@@ -217,11 +223,19 @@ import util.Serializador;
     }
 
 
+    @Override
+    public Usuario buscarUsuarioPorDni(String dni) throws UsuarioNoEncontradoException {
+       Usuario usuario = usuariosAlmacenados.get(dni);
+        if (usuario == null) {
+            throw new UsuarioNoEncontradoException("No se encontró usuario con DNI: " + dni);
+        }
+        return usuario;
+    }
 
 
     //usuarios
     @Override
-    public void buscarUsuarioPorDni(String dni) throws UsuarioNoEncontradoException {
+    public void mostrarUsuarioPorDni(String dni) throws UsuarioNoEncontradoException {
        Usuario usuario = usuariosAlmacenados.get(dni);
         if (usuario == null) {
             throw new UsuarioNoEncontradoException("No se encontró usuario con DNI: " + dni);

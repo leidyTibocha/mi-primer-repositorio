@@ -6,10 +6,10 @@ import java.io.Serializable;
 public class Usuario implements Serializable {
     public String nombres;
     public String apellidos;
-    protected String dni;
-    protected String correo_electronico;
-    protected LocalDate fechaIncripcion;
-    protected ArrayList <Prestamo> historialPrestamos;
+    private String dni;
+    private String correo_electronico;
+    private LocalDate fechaIncripcion;
+    private final ArrayList <Prestamo> historialPrestamos;
 
 
     public Usuario(String nombres, String apellidos, String dni, String correo_electronico, LocalDate fechaIncripcion, ArrayList<Prestamo> historialPrestamos) {

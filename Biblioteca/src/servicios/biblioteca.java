@@ -5,7 +5,7 @@ import excepciones.*;
 public interface Biblioteca {
     //ingresar
      void ingresarLibro(Libro libro) throws CopiaYaExiste;
-     void registrarUsuario(Usuario usuario, String dni) throws UsuarioYaExiste;
+     void registrarUsuario(Usuario usuario) throws UsuarioYaExiste;
      void realizarPrestamo(Prestamo prestamo) throws LibroNoEncontradoException, LibroNoDisponibleException, UsuarioNoEncontradoException;
 
 
@@ -31,7 +31,8 @@ public interface Biblioteca {
      void mostrarPrestamosPorGeneros();
 
      //usuarios
-     void buscarUsuarioPorDni(String dni) throws UsuarioNoEncontradoException;
+     Usuario buscarUsuarioPorDni(String dni) throws UsuarioNoEncontradoException;
+     void mostrarUsuarioPorDni(String dni) throws UsuarioNoEncontradoException;
      void mostrarTotalUsuarios();
      void mostrarHistorialPrestamos();
      void cantidadPrestamosUsuarios();

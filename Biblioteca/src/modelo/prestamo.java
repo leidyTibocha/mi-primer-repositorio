@@ -4,16 +4,13 @@ import java.time.temporal.ChronoUnit;
 import java.io.Serializable;
 
 public class Prestamo implements Serializable {
-    public String id_prestamo;
-    protected String dni_usuario;
-    public String id_libro;
-    protected LocalDate fechaPrestamo;
+    private String dni_usuario;
+    private String id_libro;
+    private LocalDate fechaPrestamo;
     private LocalDate fechaLimite;
     private LocalDate fechaDevolucion;
 
-    public Prestamo(String id_prestamo, String dni_usuario, String id_libro, LocalDate fechaPrestamo,
-            LocalDate fechaLimite, LocalDate fechaDevolucion) {
-        this.id_prestamo = id_prestamo;
+    public Prestamo(String dni_usuario, String id_libro, LocalDate fechaPrestamo, LocalDate fechaLimite, LocalDate fechaDevolucion) {
         this.dni_usuario = dni_usuario;
         this.id_libro = id_libro;
         this.fechaPrestamo = fechaPrestamo;
@@ -22,12 +19,7 @@ public class Prestamo implements Serializable {
     }
 
     
-    public String getId_prestamo() {
-        return id_prestamo;
-    }
-    public void setId_prestamo(String id_prestamo) {
-        this.id_prestamo = id_prestamo;
-    }
+
     public String getDni_usuario() {
         return dni_usuario;
     }
@@ -67,7 +59,6 @@ public class Prestamo implements Serializable {
         System.out.println("Fecha prestamo: " + this.fechaPrestamo);
         System.out.println("Fecha limite: " + this.fechaLimite);
         System.out.println("Fecha devolucion: " + this.fechaDevolucion);
-        System.out.println("Id prestamo: " + this.id_prestamo);
         System.out.println("dni usuario: " + this.dni_usuario);
         System.out.println("id libro: " + this.id_libro);
     }
