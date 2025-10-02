@@ -75,7 +75,6 @@ import util.Serializador;
     public void mostrarTodosLibros() {
         System.out.println("TODOS LOS LIBROS");
         librosAlmacenados.forEach(l -> {
-            System.out.println("______________________________________");
             l.mostrarInfoLibro();
         });
     }
@@ -348,7 +347,7 @@ import util.Serializador;
         // El vigilante ejecuta cada 15 segundos
         scheduler.scheduleAtFixedRate(() -> {
             verificarYNotificarVencidos();
-        }, 10, 15, TimeUnit.SECONDS);  // 10s delay inicial, después cada 15s
+        }, 10, 43200, TimeUnit.SECONDS);  // 
         
         System.out.println("Sistema de notificaciones de vencidos ACTIVADO");
     }

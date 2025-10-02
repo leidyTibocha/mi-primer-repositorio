@@ -55,12 +55,12 @@ public class Prestamo implements Serializable {
     }
 
     public void infoPrestamo(){
-        System.out.println("------------------------------------------");
         System.out.println("Fecha prestamo: " + this.fechaPrestamo);
         System.out.println("Fecha limite: " + this.fechaLimite);
         System.out.println("Fecha devolucion: " + this.fechaDevolucion);
         System.out.println("dni usuario: " + this.dni_usuario);
         System.out.println("id libro: " + this.id_libro);
+        System.out.println("-----------------------------------------------------------");
     }
 
     // ¿El préstamo está vencido?

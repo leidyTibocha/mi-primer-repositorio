@@ -72,6 +72,7 @@ public class Libro implements Serializable {
            System.out.println("Autor: " + this.nombreAutor + " " + this.apellidoAutor);
           System.out.println("Año de publicacion: " + this.anioPublicacion);
           System.out.println("Genero: " + genero.toString());
+          System.out.println("-----------------------------------------------------------");
      }
 
      public void mostrarInfoLibroCompleta(){
@@ -81,6 +82,7 @@ public class Libro implements Serializable {
           System.out.println("nombres y apellidos del autor: " + this.nombreAutor + " " + this.apellidoAutor);
           System.out.println("Año de publicacion: " + this.anioPublicacion);
           System.out.println("Genero: " + genero.toString());
+          System.out.println("-----------------------------------------------------------");
      }
 
      public void mostrarGeneroLibroInfo(){
@@ -88,5 +90,6 @@ public class Libro implements Serializable {
           System.out.println("Autor: " + this.nombreAutor + " " + this.apellidoAutor);
           System.out.println("Año de publicacion: " + this.anioPublicacion);
           System.out.println("Genero: " + genero.toString());
+          System.out.println("-----------------------------------------------------------");
      }
 }

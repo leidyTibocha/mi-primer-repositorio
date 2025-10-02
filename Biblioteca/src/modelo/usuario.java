@@ -1,7 +1,7 @@
 package modelo;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.io.Serializable;
 
 public class Usuario implements Serializable {
     public String nombres;
@@ -62,10 +62,11 @@ public class Usuario implements Serializable {
     }
 
     public void mostrarInfoUsuario(){
-        System.out.println("Nombre y apellidos " + this.nombres + " " + this.apellidos);
+        System.out.println("Nombre y apellidos: " + this.nombres + " " + this.apellidos);
         System.out.println("DNI: " + this.dni);
         System.out.println("Correo electronico: " + this.correo_electronico);
         System.out.println("Fecha de inscripcion: " + this.fechaIncripcion);
+        System.out.println("-----------------------------------------------------------");
     }
 
 }
